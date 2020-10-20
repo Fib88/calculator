@@ -33,6 +33,13 @@ class HomepageController
         $handle->execute();
         $names = $handle->fetchAll();
 
+        $pdo = $this->openConnection();
+        $handle = $pdo->prepare('SELECT fixed_discount, variable_discount, group_id FROM customer ');
+        $handle->execute();
+        $discount = $handle->fetchAll();
+
+
+
 
         require 'View/homepage.php';
 
