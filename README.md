@@ -1,14 +1,14 @@
-#Calculator
+# Calculator
 This exercise is a collaboration between Fib88 and MonoraxXiV.
 It's for the becode course.
 
-##Calculator checklist
+## Calculator checklist
 
 
 1. [x] Create repository
 2. [x] put checklist in the README file
-3. Set up apache server
-4. Set up Database
+3. [x] Set up apache server
+4. [x] Set up Database
 5. Make the customer class file
 6. Make the products class file
 7. Make the customer group class file
