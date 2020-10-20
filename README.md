@@ -15,7 +15,7 @@ It's for the becode course.
 8. [x] Read the customer file
 9. [x] Read the product file
 10. [x] Read the customer group file
-11. In view find a way to display these.
+11. [x] In view find a way to display these.
 12. Find a way to get all the fixed values.
 13. calculate variable discount formula set.
 14. find a way to compare the two discounts.
