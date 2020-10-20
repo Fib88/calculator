@@ -10,6 +10,22 @@ class Customer
     //might need a variable for discount.
 
     /**
+     * Customer constructor.
+     * @param int $id
+     * @param string $firstName
+     * @param string $lastName
+     * @param CustomerGroup $customerGroup
+     */
+    public function __construct(int $id, string $firstName, string $lastName, CustomerGroup $customerGroup)
+    {
+        $this->id = $id;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->customerGroup = $customerGroup;
+    }
+
+
+    /**
      * @return int
      */
     public function getId(): int
