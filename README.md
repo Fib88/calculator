@@ -12,9 +12,9 @@ It's for the becode course.
 5. [x] Make the customer class file
 6. [x] Make the products class file
 7. [x] Make the customer group class file
-8. Read the customer file
-9. Read the product file
-10. Read the customer group file
+8. [x] Read the customer file
+9. [x] Read the product file
+10. [x] Read the customer group file
 11. In view find a way to display these.
 12. Find a way to get all the fixed values.
 13. calculate variable discount formula set.

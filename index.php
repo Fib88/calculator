@@ -15,11 +15,6 @@ echo "Testing testing";
 $controller = new HomepageController();
 $controller->render($_GET, $_POST);
 
-
-
-
-
-
 ?>
 
 
