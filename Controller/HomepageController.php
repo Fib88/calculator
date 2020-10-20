@@ -24,12 +24,12 @@ class HomepageController
     public function render(array $GET, array $POST)
     {
         $pdo = $this->openConnection();
-        $handle = $pdo->prepare('SELECT name FROM product ');
+        $handle = $pdo->prepare('SELECT name, price FROM product ');
         $handle->execute();
         $rows = $handle->fetchAll();
 
         $pdo = $this->openConnection();
-        $handle = $pdo->prepare('SELECT firstname FROM customer ');
+        $handle = $pdo->prepare('SELECT firstname, lastname FROM customer ');
         $handle->execute();
         $names = $handle->fetchAll();
 
