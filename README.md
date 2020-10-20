@@ -9,9 +9,9 @@ It's for the becode course.
 2. [x] put checklist in the README file
 3. [x] Set up apache server
 4. [x] Set up Database
-5. Make the customer class file
-6. Make the products class file
-7. Make the customer group class file
+5. [x] Make the customer class file
+6. [x] Make the products class file
+7. [x] Make the customer group class file
 8. Read the customer file
 9. Read the product file
 10. Read the customer group file
