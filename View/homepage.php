@@ -1,11 +1,34 @@
-<?php require 'includes/header.php'?>
+<?php
+require 'includes/header.php';
+
+
+
+?>
 <!-- this is the view, try to put only simple if's and loops here.
 Anything complex should be calculated in the model -->
 <section>
-    <h4>Hello <?php echo $user->getName()?>,</h4>
+    <form>
+        <select name="dropdown" id="dropdown">
+            <?php foreach ($names as $row): ?>
+                <option><?=$row["firstname"]?></option>
+            <?php endforeach ?>
 
-    <p><a href="index.php?page=info">To info page</a></p>
+            ?>
+            //<label for="dropdown">Select</label>
+        </select>
+       <select name="dropdown" id="dropdown">
+            <?php foreach ($rows as $row): ?>
+           <option><?=$row["name"]?></option>
+           <?php endforeach ?>
 
-    <p>Put your content here.</p>
+            ?>
+          //<label for="dropdown">Select</label>
+      </select>
+      <button type="submit">Submit</button>
+
+
+
+
 </section>
+
 <?php require 'includes/footer.php'?>
