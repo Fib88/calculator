@@ -8,7 +8,9 @@ error_reporting(E_ALL);
 require 'config.php';
 require 'Controller/HomepageController.php';
 
+
 echo "Testing testing";
+
 
 $controller = new HomepageController();
 $controller->render($_GET, $_POST);
@@ -17,5 +19,7 @@ $controller->render($_GET, $_POST);
 
 
 
+
+?>
 
 
