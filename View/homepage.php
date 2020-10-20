@@ -10,7 +10,7 @@ Anything complex should be calculated in the model -->
     <form>
         <select name="dropdown" id="dropdown">
             <?php foreach ($names as $row): ?>
-                <option><?=$row["firstname"]?></option>
+                <option><?=$row["firstname"]. " ". $row['lastname']?></option>
             <?php endforeach ?>
 
             ?>
@@ -18,7 +18,7 @@ Anything complex should be calculated in the model -->
         </select>
        <select name="dropdown" id="dropdown">
             <?php foreach ($rows as $row): ?>
-           <option><?=$row["name"]?></option>
+           <option><?=$row["name"]. " €". $row['price']/100?></option>
            <?php endforeach ?>
 
             ?>
