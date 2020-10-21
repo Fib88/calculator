@@ -94,7 +94,7 @@ class HomepageController
                 $handle->execute();
                 $CustomerGroupSelect = $handle->fetchAll();
 
-                var_dump($CustomerGroupSelect);
+                //var_dump($CustomerGroupSelect);
 
                 /*
                 while ( $CustomerGroupSelect[0]['parent_id']!==null){
@@ -109,27 +109,18 @@ class HomepageController
         // if ($customername==$names[i]['firstname']." ".$names[i]['lastname'])
 
 
-        function whatIsHappening() {
-            echo '<h2>$_GET</h2>';
-            var_dump($_GET);
-            echo '<h2>$_POST</h2>';
-            var_dump($_POST);
-            echo '<h2>$_COOKIE</h2>';
-            var_dump($_COOKIE);
-            echo '<h2>$_SESSION</h2>';
-            var_dump($_SESSION);
-        }
+
 
         $customerInfo=$_POST['dropdown'];
         var_dump($customerInfo);
 //        var_dump($discount);
 
         $productInfo=$_POST['dropdown2'];
-        var_dump($names);
+        //var_dump($names);
 
 
         require 'View/homepage.php';
-        whatIsHappening();
+
     }
 
 
