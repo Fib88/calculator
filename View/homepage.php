@@ -14,14 +14,20 @@ Anything complex should be calculated in the model -->
             <?php endforeach ?>
 
 
+
             <label for="dropdown">Select</label>
         </select>
        <select name="dropdown2" id="dropdown">
+
+            <label for="dropdown">Select</label>
+        </select>
+       <select name="dropdown2" id="dropdown2">
+
             <?php foreach ($rows as $row): ?>
            <option><?=$row["name"]. " €". $row['price']/100?></option>
            <?php endforeach ?>
 
-           <label for="dropdown">Select</label>
+           <label for="dropdown2">Select</label>
       </select>
       <button type="submit">Submit</button>
     </form>
