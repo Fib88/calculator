@@ -12,10 +12,7 @@ Anything complex should be calculated in the model -->
             <?php foreach ($names as $row): ?>
                 <option><?=$row["firstname"]. " ". $row['lastname']?></option>
             <?php endforeach ?>
-
-
-
-            <label for="dropdown">Select</label>
+             <label for="dropdown">Select</label>
         </select>
        <select name="dropdown2" id="dropdown">
 

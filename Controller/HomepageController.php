@@ -88,21 +88,22 @@ class HomepageController
         $GroupID= $SelectedCustomer[0]['group_id'];
         $fixedDiscount= $SelectedCustomer[0]['fixed_discount'];
 
+
                 $pdo = $this->openConnection();
                 $handle = $pdo->prepare('SELECT * FROM customer_group WHERE id LIKE :id ');
                 $handle->bindValue(':id' ,$GroupID);
                 $handle->execute();
                 $CustomerGroupSelect = $handle->fetchAll();
 
-                //var_dump($CustomerGroupSelect);
+                var_dump($CustomerGroupSelect);
 
-                /*
-                while ( $CustomerGroupSelect[0]['parent_id']!==null){
-                $fixedDiscount+=$CustomerGroupSelect[0]['fixed_discount'];
 
-                }
-                echo $fixedDiscount;
-                */
+//                while  $CustomerGroupSelect[0]['parent_id']!==null){
+//                $fixedDiscount+=$CustomerGroupSelect[0]['fixed_discount'];
+//
+//                }
+//                echo $fixedDiscount;
+
 
         //loop over the arrays, if the name matches, get the other attributes, but customername will not match with firstname.
         // as it's a variable made of the results of both cells.
@@ -120,8 +121,5 @@ class HomepageController
 
 
         require 'View/homepage.php';
-
     }
-
-
 }
