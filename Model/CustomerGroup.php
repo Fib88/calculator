@@ -26,5 +26,45 @@ class CustomerGroup
         $this->variable_discount = $variable_discount;
     }
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getParentId(): int
+    {
+        return $this->parent_id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFixedDiscount(): int
+    {
+        return $this->fixed_discount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVariableDiscount(): int
+    {
+        return $this->variable_discount;
+    }
+
 
 }

@@ -1,6 +1,12 @@
 <?php
 declare(strict_types=1);
 
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
+
 function whatIsHappening()
 {
     echo '<h2>$_GET</h2>';
@@ -54,7 +60,7 @@ class HomepageController
 
 
         $pdo = $this->openConnection();
-        $handle = $pdo->prepare('SELECT firstname, lastname FROM customer ');
+        $handle = $pdo->prepare('SELECT * FROM customer ');
         $handle->execute();
         $names = $handle->fetchAll();
 
@@ -95,8 +101,10 @@ class HomepageController
         $GroupID = $SelectedCustomer[0]['group_id'];
         $fixedDiscount = $SelectedCustomer[0]['fixed_discount'];
 
+
         $allGroups=array();
         array_unshift($allGroups,$this->findGroup($GroupID));
+
 
         while ($allGroups[0]['parent_id'] !== null) {
            array_unshift($allGroups,$this->findGroup($allGroups[0]['parent_id']));
