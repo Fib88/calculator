@@ -7,13 +7,13 @@ require 'includes/header.php';
 <!-- this is the view, try to put only simple if's and loops here.
 Anything complex should be calculated in the model -->
 <section>
-    <form>
+    <form method="post">
         <select name="dropdown" id="dropdown">
             <?php foreach ($names as $row): ?>
                 <option><?=$row["firstname"]. " ". $row['lastname']?></option>
             <?php endforeach ?>
 
-            ?>
+
             //<label for="dropdown">Select</label>
         </select>
        <select name="dropdown" id="dropdown">
@@ -21,11 +21,10 @@ Anything complex should be calculated in the model -->
            <option><?=$row["name"]. " €". $row['price']/100?></option>
            <?php endforeach ?>
 
-            ?>
-          //<label for="dropdown">Select</label>
+           <label for="dropdown">Select</label>
       </select>
       <button type="submit">Submit</button>
-
+    </form>
 
 
 
