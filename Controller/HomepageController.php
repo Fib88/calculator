@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 class HomepageController
 {
 
@@ -29,7 +33,7 @@ class HomepageController
         $rows = $handle->fetchAll();
 
         $pdo = $this->openConnection();
-        $handle = $pdo->prepare('SELECT firstname, lastname FROM customer ');
+        $handle = $pdo->prepare('SELECT * FROM customer ');
         $handle->execute();
         $names = $handle->fetchAll();
 
@@ -38,11 +42,27 @@ class HomepageController
         $handle->execute();
         $discount = $handle->fetchAll();
 
+        function whatIsHappening() {
+            echo '<h2>$_GET</h2>';
+            var_dump($_GET);
+            echo '<h2>$_POST</h2>';
+            var_dump($_POST);
+            echo '<h2>$_COOKIE</h2>';
+            var_dump($_COOKIE);
+            echo '<h2>$_SESSION</h2>';
+            var_dump($_SESSION);
+        }
 
+        $customerInfo=$_POST['dropdown'];
+        var_dump($customerInfo);
+//        var_dump($discount);
+
+        $productInfo=$_POST['dropdown2'];
+        var_dump($names);
 
 
         require 'View/homepage.php';
-
+        whatIsHappening();
     }
 
 
