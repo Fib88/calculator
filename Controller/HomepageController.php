@@ -18,6 +18,7 @@ function whatIsHappening()
     //echo '<h2>$_SESSION</h2>';
     //var_dump($_SESSION);
 }
+
 //Using whatIsHappening function from order-form exercise to debug a bit.
 whatIsHappening();
 
@@ -40,6 +41,15 @@ class HomepageController
         return $pdo;
     }
 
+    public function findGroup($id)
+    {
+        $pdo = $this->openConnection();
+        $handle = $pdo->prepare('SELECT * FROM customer_group WHERE id = :id ');
+        $handle->bindValue(':id', $id);
+        $handle->execute();
+        return $handle->fetch();
+
+    }
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $GET, array $POST)
     {
@@ -55,26 +65,26 @@ class HomepageController
         $names = $handle->fetchAll();
 
 
-        if(isset ($_POST['dropdown'])) {
+        if (isset ($_POST['dropdown'])) {
             $customerInfo = $_POST['dropdown'];
-        }else {
-            $_POST['dropdown']=$names[0]['firstname']." ".$names[0]['lastname'];
+        } else {
+            $_POST['dropdown'] = $names[0]['firstname'] . " " . $names[0]['lastname'];
         }
         //var_dump($customerInfo);
 
         if (isset($_POST['dropdown2'])) {
             $productInfo = $_POST['dropdown2'];
         } else {
-            $_POST['dropdown2']=$rows[0]['name'];
+            $_POST['dropdown2'] = $rows[0]['name'];
         }
         /*
         $ProductSelection = substr($productInfo, strpos($productInfo, "€") + 1);
         echo $ProductSelection;
         */
-        if (!isset($customerInfo)){
-            $customerInfo= " ";
+        if (!isset($customerInfo)) {
+            $customerInfo = " ";
         }
-        $customername= explode(" ", $customerInfo );
+        $customername = explode(" ", $customerInfo);
 
         $pdo = $this->openConnection();
         //split $customer info on space, keep both names
@@ -85,38 +95,28 @@ class HomepageController
         $handle->execute();
         $SelectedCustomer = $handle->fetchAll();
         var_dump($SelectedCustomer);
-        $GroupID= $SelectedCustomer[0]['group_id'];
-        $fixedDiscount= $SelectedCustomer[0]['fixed_discount'];
+        if (!empty($SelectedCustomer)){
 
-                $pdo = $this->openConnection();
-                $handle = $pdo->prepare('SELECT * FROM customer_group WHERE id LIKE :id ');
-                $handle->bindValue(':id' ,$GroupID);
-                $handle->execute();
-                $CustomerGroupSelect = $handle->fetchAll();
 
-                //var_dump($CustomerGroupSelect);
+        $GroupID = $SelectedCustomer[0]['group_id'];
+        $fixedDiscount = $SelectedCustomer[0]['fixed_discount'];
 
-                /*
-                while ( $CustomerGroupSelect[0]['parent_id']!==null){
-                $fixedDiscount+=$CustomerGroupSelect[0]['fixed_discount'];
 
-                }
-                echo $fixedDiscount;
-                */
+        $allGroups=array();
+        array_unshift($allGroups,$this->findGroup($GroupID));
+
+
+        while ($allGroups[0]['parent_id'] !== null) {
+           array_unshift($allGroups,$this->findGroup($allGroups[0]['parent_id']));
+
+        }
+        var_dump( $allGroups);
+        echo $fixedDiscount;
+        }
 
         //loop over the arrays, if the name matches, get the other attributes, but customername will not match with firstname.
         // as it's a variable made of the results of both cells.
         // if ($customername==$names[i]['firstname']." ".$names[i]['lastname'])
-
-
-
-
-        $customerInfo=$_POST['dropdown'];
-        var_dump($customerInfo);
-//        var_dump($discount);
-
-        $productInfo=$_POST['dropdown2'];
-        //var_dump($names);
 
 
         require 'View/homepage.php';
