@@ -19,3 +19,5 @@ It's for the becode course.
 12. Find a way to get all the fixed values.
 13. calculate variable discount formula set.
 14. find a way to compare the two discounts.
+15. display result and show largest discount
+16. remove unnecessary layout items
