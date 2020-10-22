@@ -135,6 +135,8 @@ class HomepageController
 
             $fixedDiscountList = array_sum($fixedDiscountList);
             var_dump($fixedDiscountList);
+            $totalFixedDiscount = $fixedDiscountList + $fixedDiscount;
+            var_dump($totalFixedDiscount);
 //            var_dump($varDiscount);
 //            var_dump($allGroups);
 
@@ -146,11 +148,17 @@ class HomepageController
             $varDifference=(float)$ProductSelection/100*$highVarDiscount;
             echo round($varDifference,2);
 
+//        var_dump($allVarDiscounts);
+//        var_dump($fixedDiscountList);
+        $ValueTotalFixedDiscount =$ProductSelection-$totalFixedDiscount;
+        $varDifference=(float)$ValueTotalFixedDiscount/100*$highVarDiscount;
+        echo round($varDifference,2);
+        if($totalFixedDiscount>$varDifference){
+            echo "Fixed Discount most value";
         }
-
-        var_dump($allVarDiscounts);
-        var_dump($fixedDiscountList);
-
+        else{
+            echo "Percentage Discount most value";
+        }
 
         require 'View/homepage.php';
 
