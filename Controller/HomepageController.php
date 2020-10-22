@@ -50,6 +50,7 @@ class HomepageController
         return $handle->fetch();
 
     }
+
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $GET, array $POST)
     {
@@ -95,51 +96,41 @@ class HomepageController
         $handle->execute();
         $SelectedCustomer = $handle->fetchAll();
         var_dump($SelectedCustomer);
-        if (!empty($SelectedCustomer)){
+        if (!empty($SelectedCustomer)) {
+            $GroupID = $SelectedCustomer[0]['group_id'];
+            $fixedDiscount = $SelectedCustomer[0]['fixed_discount'];
+            var_dump("fixed discount" . $fixedDiscount);
 
+            $pdo = $this->openConnection();
+            $handle = $pdo->prepare('SELECT * FROM customer_group WHERE id LIKE :id ');
+            $handle->bindValue(':id',$GroupID);
+            $handle->execute();
+            $CustomerGroupSelect = $handle->fetchAll();
 
+            var_dump($CustomerGroupSelect);
+        }
 
-                $pdo = $this->openConnection();
-                $handle = $pdo->prepare('SELECT * FROM customer_group WHERE id LIKE :id ');
-                $handle->bindValue(':id' ,$GroupID);
-                $handle->execute();
-                $CustomerGroupSelect = $handle->fetchAll();
+        //add customer fixed discount with the discount from the groups
 
-                var_dump($CustomerGroupSelect);
-
-
-//                while  $CustomerGroupSelect[0]['parent_id']!==null){
-//                $fixedDiscount+=$CustomerGroupSelect[0]['fixed_discount'];
-//
-//                }
-//                echo $fixedDiscount;
-
-
-        //loop over the arrays, if the name matches, get the other attributes, but customername will not match with firstname.
-        // as it's a variable made of the results of both cells.
-        // if ($customername==$names[i]['firstname']." ".$names[i]['lastname'])
-
-
-        $GroupID = $SelectedCustomer[0]['group_id'];
-        $fixedDiscount = $SelectedCustomer[0]['fixed_discount'];
-
-
-        $allGroups=array();
-        array_unshift($allGroups,$this->findGroup($GroupID));
-
-
+        $allGroups = array();
+        array_unshift($allGroups, $this->findGroup($GroupID));
+        var_dump("GroupID" . $GroupID);
 
         while ($allGroups[0]['parent_id'] !== null) {
-           array_unshift($allGroups,$this->findGroup($allGroups[0]['parent_id']));
+            array_unshift($allGroups, $this->findGroup($allGroups[0]['parent_id']));
+        }
+        var_dump($allGroups);
+
+        $fixedDiscountList = [];
+        for ($i = 0; $i < count($allGroups); $i++) {
+            if ($allGroups[$i]["fixed_discount"] !== null) {
+                array_push($fixedDiscountList, (int)$allGroups[$i]["fixed_discount"]);
+            }
 
         }
-        var_dump( $allGroups);
-        echo $fixedDiscount;
-        }
 
-        //loop over the arrays, if the name matches, get the other attributes, but customername will not match with firstname.
-        // as it's a variable made of the results of both cells.
-        // if ($customername==$names[i]['firstname']." ".$names[i]['lastname'])
+        var_dump($fixedDiscountList);
+       
 
 
         require 'View/homepage.php';
