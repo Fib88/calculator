@@ -5,6 +5,7 @@ declare(strict_types=1);
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
+session_start();
 
 class HomepageController
 {
@@ -52,6 +53,9 @@ class HomepageController
             $_POST['dropdown2'] = $rows[0]['name'];
         }
 
+        if (!isset($productInfo)) {
+            $productInfo = " ";
+        }
         //utf 8 apparently takes 3 spaces for €.
         $ProductSelection = substr($productInfo, strpos($productInfo, '€') + strlen('€'));
         //var_dump($ProductSelection);
@@ -91,11 +95,8 @@ class HomepageController
 
             }
 
-
-            echo $fixedDiscount . '<br>';
-
             $fixedDiscountList = [];
-
+            $highVarDiscount = 0;
             for ($i = 0; $i < count($allGroups); $i++) {
                 if ($allGroups[$i]["fixed_discount"] !== null) {
                     array_push($fixedDiscountList, (int)$allGroups[$i]["fixed_discount"]);
@@ -106,7 +107,7 @@ class HomepageController
                     array_push($allVarDiscounts, (int)$allGroups[$i]['variable_discount']);
                 }
                 rsort($allVarDiscounts);
-                $highVarDiscount = 0;
+
                 if (isset($allVarDiscounts[0])) {
                     $groupVarDiscount = $allVarDiscounts[0];
                     if ($groupVarDiscount > $varDiscount) {
@@ -119,25 +120,24 @@ class HomepageController
 
             $fixedDiscountList = array_sum($fixedDiscountList);
             //var_dump($fixedDiscountList);
+
             $totalFixedDiscount = $fixedDiscountList + $fixedDiscount;
             //var_dump($totalFixedDiscount);
+
+
+            $varDifference = (float)$ProductSelection / 100 * $highVarDiscount;
+
+
+            $ValueTotalFixedDiscount = $ProductSelection - $totalFixedDiscount;
+            $varDifference = (float)$ValueTotalFixedDiscount / 100 * $highVarDiscount;
+            $LeftoverPrice = $ProductSelection - $varDifference;
+            echo "Object ordered, from the " . $productInfo . " " . "You have saved: " . round($varDifference, 2) . " ." . "Which resulted in the price of " . round($LeftoverPrice, 2) . '<br>';
+            if ($totalFixedDiscount > $varDifference) {
+                echo " Your Fixed Discount had the most value";
+            } else {
+                echo "Your Percentage Discount had the most value";
+            }
         }
-
-
-        echo $highVarDiscount . '<br>';
-        echo (float)($ProductSelection) . '<br>';
-        $varDifference = (float)$ProductSelection / 100 * $highVarDiscount;
-        echo round($varDifference, 2);
-
-        $ValueTotalFixedDiscount = $ProductSelection - $totalFixedDiscount;
-        $varDifference = (float)$ValueTotalFixedDiscount / 100 * $highVarDiscount;
-        echo round($varDifference, 2) .'<br>';
-        if ($totalFixedDiscount > $varDifference) {
-            echo "Fixed Discount most value";
-        } else {
-            echo "Percentage Discount most value";
-        }
-
         require 'View/homepage.php';
 
     }
