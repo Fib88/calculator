@@ -14,10 +14,7 @@ Anything complex should be calculated in the model -->
             <?php endforeach ?>
              <label for="dropdown">Select</label>
         </select>
-       <select name="dropdown2" id="dropdown">
 
-            <label for="dropdown">Select</label>
-        </select>
        <select name="dropdown2" id="dropdown2">
 
             <?php foreach ($rows as $row): ?>
