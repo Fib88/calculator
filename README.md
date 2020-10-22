@@ -16,8 +16,10 @@ It's for the becode course.
 9. [x] Read the product file
 10. [x] Read the customer group file
 11. [x] In view find a way to display these.
-12. Find a way to get all the fixed values.
-13. calculate variable discount formula set.
-14. find a way to compare the two discounts.
-15. display result and show largest discount
+12. [x] Find a way to get all the fixed values.
+13. [x] calculate variable discount formula set.
+14. [x] find a way to compare the two discounts.
+15. [x] display result and show largest discount
 16. remove unnecessary layout items
+17. clean up negative discount bug
+18. add styling to the results
