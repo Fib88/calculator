@@ -124,13 +124,15 @@ class HomepageController
                     array_push($allVarDiscounts, (int)$allGroups[$i]['variable_discount']);
                 }
                 rsort($allVarDiscounts);
-                $groupVarDiscount = $allVarDiscounts[0];
-                if ($groupVarDiscount > $varDiscount) {
-                    $highVarDiscount = $groupVarDiscount;
-                } elseif ($groupVarDiscount < $varDiscount) {
-                    $highVarDiscount = $varDiscount;
+                $highVarDiscount = 0;
+                if(isset($allVarDiscounts[0])) {
+                    $groupVarDiscount = $allVarDiscounts[0];
+                    if ($groupVarDiscount > $varDiscount) {
+                        $highVarDiscount = $groupVarDiscount;
+                    } elseif ($groupVarDiscount < $varDiscount) {
+                        $highVarDiscount = $varDiscount;
+                    }
                 }
-
         }
 
             $fixedDiscountList = array_sum($fixedDiscountList);
