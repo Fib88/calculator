@@ -117,21 +117,34 @@ class HomepageController
                 //array_unshift($allVarDiscounts, $this->findDiscount($allGroups[0]['variable_discount']));
 
             }
-            var_dump($allGroups);
-            //var_dump ($allVarDiscounts);
-            echo $fixedDiscount;
+
+
             $fixedDiscountList = [];
             for ($i = 0; $i < count($allGroups); $i++) {
                 if ($allGroups[$i]["fixed_discount"] !== null) {
                     array_push($fixedDiscountList, (int)$allGroups[$i]["fixed_discount"]);
                 }
+
+
         }
 
-
-
+            if($varDiscount==null){
+                $varDiscount=0;
+            }
+            $fixedDiscountList = array_sum($fixedDiscountList);
+            var_dump($fixedDiscountList);
+//            var_dump($varDiscount);
+//            var_dump($allGroups);
+            
 }
 
-var_dump($fixedDiscountList);
+
+
+
+
+
+
+
 
 
 
