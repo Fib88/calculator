@@ -135,7 +135,7 @@ class HomepageController
             var_dump($fixedDiscountList);
 //            var_dump($varDiscount);
 //            var_dump($allGroups);
-            
+
 }
 
 
