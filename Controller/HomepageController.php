@@ -6,22 +6,6 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-
-function whatIsHappening()
-{
-    echo '<h2>$_GET</h2>';
-    var_dump($_GET);
-    echo '<h2>$_POST</h2>';
-    var_dump($_POST);
-    echo '<h2>$_COOKIE</h2>';
-    var_dump($_COOKIE);
-    //echo '<h2>$_SESSION</h2>';
-    //var_dump($_SESSION);
-}
-
-//Using whatIsHappening function from order-form exercise to debug a bit.
-whatIsHappening();
-
 class HomepageController
 {
     public function findGroup($id)
@@ -60,7 +44,7 @@ class HomepageController
         } else {
             $_POST['dropdown'] = $names[0]['firstname'] . " " . $names[0]['lastname'];
         }
-        //var_dump($customerInfo);
+
 
         if (isset($_POST['dropdown2'])) {
             $productInfo = $_POST['dropdown2'];
@@ -70,7 +54,7 @@ class HomepageController
 
         //utf 8 apparently takes 3 spaces for €.
         $ProductSelection = substr($productInfo, strpos($productInfo, '€') + strlen('€'));
-        var_dump($ProductSelection);
+        //var_dump($ProductSelection);
 
 
         if (!isset($customerInfo)) {
@@ -86,7 +70,7 @@ class HomepageController
 
         $handle->execute();
         $SelectedCustomer = $handle->fetchAll();
-        var_dump($SelectedCustomer);
+        //var_dump($SelectedCustomer);
         if (!empty($SelectedCustomer)) {
 
 
@@ -107,7 +91,6 @@ class HomepageController
 
             }
 
-            var_dump($allGroups);
 
             echo $fixedDiscount . '<br>';
 
@@ -117,7 +100,6 @@ class HomepageController
                 if ($allGroups[$i]["fixed_discount"] !== null) {
                     array_push($fixedDiscountList, (int)$allGroups[$i]["fixed_discount"]);
 
-
                 }
 
                 if ($allGroups[$i]['variable_discount'] !== null) {
@@ -125,7 +107,7 @@ class HomepageController
                 }
                 rsort($allVarDiscounts);
                 $highVarDiscount = 0;
-                if(isset($allVarDiscounts[0])) {
+                if (isset($allVarDiscounts[0])) {
                     $groupVarDiscount = $allVarDiscounts[0];
                     if ($groupVarDiscount > $varDiscount) {
                         $highVarDiscount = $groupVarDiscount;
@@ -133,38 +115,31 @@ class HomepageController
                         $highVarDiscount = $varDiscount;
                     }
                 }
-        }
+            }
 
             $fixedDiscountList = array_sum($fixedDiscountList);
-            var_dump($fixedDiscountList);
+            //var_dump($fixedDiscountList);
             $totalFixedDiscount = $fixedDiscountList + $fixedDiscount;
-            var_dump($totalFixedDiscount);
-//            var_dump($varDiscount);
-//            var_dump($allGroups);
-
-}
-
-
-            echo $highVarDiscount.'<br>';
-            echo (float)($ProductSelection).'<br>';
-            $varDifference=(float)$ProductSelection/100*$highVarDiscount;
-            echo round($varDifference,2);
-
-//        var_dump($allVarDiscounts);
-//        var_dump($fixedDiscountList);
-        $ValueTotalFixedDiscount =$ProductSelection-$totalFixedDiscount;
-        $varDifference=(float)$ValueTotalFixedDiscount/100*$highVarDiscount;
-        echo round($varDifference,2);
-        if($totalFixedDiscount>$varDifference){
-            echo "Fixed Discount most value";
+            //var_dump($totalFixedDiscount);
         }
-        else{
+
+
+        echo $highVarDiscount . '<br>';
+        echo (float)($ProductSelection) . '<br>';
+        $varDifference = (float)$ProductSelection / 100 * $highVarDiscount;
+        echo round($varDifference, 2);
+
+        $ValueTotalFixedDiscount = $ProductSelection - $totalFixedDiscount;
+        $varDifference = (float)$ValueTotalFixedDiscount / 100 * $highVarDiscount;
+        echo round($varDifference, 2) .'<br>';
+        if ($totalFixedDiscount > $varDifference) {
+            echo "Fixed Discount most value";
+        } else {
             echo "Percentage Discount most value";
         }
 
         require 'View/homepage.php';
 
     }
-
 
 }
