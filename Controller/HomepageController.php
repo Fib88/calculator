@@ -49,7 +49,7 @@ class HomepageController
 
         $handle = $pdo->prepare('SELECT firstname, lastname FROM customer ');
 
-        $pdo = $this->openConnection();
+
         $handle = $pdo->prepare('SELECT * FROM customer ');
 
         $handle->execute();
@@ -68,10 +68,10 @@ class HomepageController
         } else {
             $_POST['dropdown2'] = $rows[0]['name'];
         }
-        /*
+
         $ProductSelection = substr($productInfo, strpos($productInfo, "€") + 1);
         echo $ProductSelection;
-        */
+
         if (!isset($customerInfo)) {
             $customerInfo = " ";
         }
