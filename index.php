@@ -7,11 +7,11 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 require 'config.php';
 require 'Controller/HomepageController.php';
+require 'Model/Connection.php';
 
 
-echo "Testing testing";
-
-
+$connector = new Connection();
+$pdo = $connector->getPdo();
 $controller = new HomepageController();
 $controller->render($_GET, $_POST);
 
