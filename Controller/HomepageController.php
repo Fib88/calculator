@@ -34,22 +34,18 @@ class HomepageController
         return $handle->fetch();
 
     }
+    /*
+        public function findDiscount($discount)
+        {
+            $connector = new Connection();
+            $pdo = $connector->getPdo();
+            $handle = $pdo->prepare('SELECT * FROM customer_group WHERE variable_discount = :variable_discount');
+            $handle->bindValue(':variable_discount', $discount);
+            $handle->execute();
+            return $handle->fetch();
 
-/*
-    public function findDiscount($discount)
-    {
-        $connector = new Connection();
-        $pdo = $connector->getPdo();
-        $handle = $pdo->prepare('SELECT * FROM customer_group WHERE variable_discount = :variable_discount');
-        $handle->bindValue(':variable_discount', $discount);
-        $handle->execute();
-        return $handle->fetch();
-
-    }
-*/
-
-
-
+        }
+    */
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $GET, array $POST)
     {
@@ -62,7 +58,7 @@ class HomepageController
         $rows = $handle->fetchAll();
 
 
-        //$handle = $pdo->prepare('SELECT firstname, lastname FROM customer ');
+        $handle = $pdo->prepare('SELECT firstname, lastname FROM customer ');
 
 
         $handle = $pdo->prepare('SELECT * FROM customer ');
@@ -104,15 +100,13 @@ class HomepageController
         if (!empty($SelectedCustomer)) {
 
 
-
             $GroupID = $SelectedCustomer[0]['group_id'];
             $fixedDiscount = $SelectedCustomer[0]['fixed_discount'];
 
 
 
             $varDiscount = $SelectedCustomer[0]['variable_discount'];
-          //if there is an error, uncomment the bracket in this code part
-        /*
+
             $allGroups = array();
             array_unshift($allGroups, $this->findGroup($GroupID));
             /*
@@ -122,44 +116,30 @@ class HomepageController
                 array_unshift($allGroups, $this->findGroup($allGroups[0]['parent_id']));
                 //array_unshift($allVarDiscounts, $this->findDiscount($allGroups[0]['variable_discount']));
 
-            }  
+            }
             var_dump($allGroups);
-          */
             //var_dump ($allVarDiscounts);
             echo $fixedDiscount;
+            $fixedDiscountList = [];
+            for ($i = 0; $i < count($allGroups); $i++) {
+                if ($allGroups[$i]["fixed_discount"] !== null) {
+                    array_push($fixedDiscountList, (int)$allGroups[$i]["fixed_discount"]);
+                }
         }
 
-            $GroupID = $SelectedCustomer[0]['group_id'];
-            $fixedDiscount = $SelectedCustomer[0]['fixed_discount'];
-            //var_dump("fixed discount" . $fixedDiscount);
 
 
-        }
+}
 
-        //add customer fixed discount with the discount from the groups
+var_dump($fixedDiscountList);
 
-        $allGroups = array();
-        array_unshift($allGroups, $this->findGroup($GroupID));
-        var_dump("GroupID" . $GroupID);
-
-        while ($allGroups[0]['parent_id'] !== null) {
-            array_unshift($allGroups, $this->findGroup($allGroups[0]['parent_id']));
-        }
-        var_dump($allGroups);
-
-        $fixedDiscountList = [];
-        for ($i = 0; $i < count($allGroups); $i++) {
-            if ($allGroups[$i]["fixed_discount"] !== null) {
-                array_push($fixedDiscountList, (int)$allGroups[$i]["fixed_discount"]);
-            }
-
-        }
-
-        var_dump($fixedDiscountList);
 
 
 
 
         require 'View/homepage.php';
+
     }
+
+
 }
