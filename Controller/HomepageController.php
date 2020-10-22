@@ -130,7 +130,7 @@ class HomepageController
         }
 
         var_dump($fixedDiscountList);
-       
+
 
 
         require 'View/homepage.php';
