@@ -34,18 +34,8 @@ class HomepageController
         return $handle->fetch();
 
     }
-    /*
-        public function findDiscount($discount)
-        {
-            $connector = new Connection();
-            $pdo = $connector->getPdo();
-            $handle = $pdo->prepare('SELECT * FROM customer_group WHERE variable_discount = :variable_discount');
-            $handle->bindValue(':variable_discount', $discount);
-            $handle->execute();
-            return $handle->fetch();
 
-        }
-    */
+
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $GET, array $POST)
     {
@@ -59,8 +49,6 @@ class HomepageController
 
 
         $handle = $pdo->prepare('SELECT firstname, lastname FROM customer ');
-
-
         $handle = $pdo->prepare('SELECT * FROM customer ');
 
         $handle->execute();
@@ -80,8 +68,10 @@ class HomepageController
             $_POST['dropdown2'] = $rows[0]['name'];
         }
 
-        $ProductSelection = substr($productInfo, strpos($productInfo, "€") + 1);
-        echo $ProductSelection;
+        //utf 8 apparently takes 3 spaces for €.
+        $ProductSelection = substr($productInfo, strpos($productInfo, '€') + strlen('€'));
+        var_dump($ProductSelection);
+
 
         if (!isset($customerInfo)) {
             $customerInfo = " ";
@@ -104,37 +94,51 @@ class HomepageController
             $fixedDiscount = $SelectedCustomer[0]['fixed_discount'];
 
 
-
             $varDiscount = $SelectedCustomer[0]['variable_discount'];
 
             $allGroups = array();
             array_unshift($allGroups, $this->findGroup($GroupID));
-            /*
-            $allVarDiscounts=array();
-             */
+
+            $allVarDiscounts = array();
+
             while ($allGroups[0]['parent_id'] !== null) {
                 array_unshift($allGroups, $this->findGroup($allGroups[0]['parent_id']));
-                //array_unshift($allVarDiscounts, $this->findDiscount($allGroups[0]['variable_discount']));
+
 
             }
             var_dump($allGroups);
-            //var_dump ($allVarDiscounts);
-            echo $fixedDiscount;
+
+            echo $fixedDiscount . '<br>';
             $fixedDiscountList = [];
+
             for ($i = 0; $i < count($allGroups); $i++) {
                 if ($allGroups[$i]["fixed_discount"] !== null) {
                     array_push($fixedDiscountList, (int)$allGroups[$i]["fixed_discount"]);
+
                 }
+
+                if ($allGroups[$i]['variable_discount'] !== null) {
+                    array_push($allVarDiscounts, (int)$allGroups[$i]['variable_discount']);
+                }
+                rsort($allVarDiscounts);
+                $groupVarDiscount = $allVarDiscounts[0];
+                if ($groupVarDiscount > $varDiscount) {
+                    $highVarDiscount = $groupVarDiscount;
+                } elseif ($groupVarDiscount < $varDiscount) {
+                    $highVarDiscount = $varDiscount;
+                }
+
+            }
+
+            echo $highVarDiscount.'<br>';
+            echo (float)($ProductSelection).'<br>';
+            $varDifference=(float)$ProductSelection/100*$highVarDiscount;
+            echo round($varDifference,2);
+
         }
 
-
-
-}
-
-var_dump($fixedDiscountList);
-
-
-
+        var_dump($allVarDiscounts);
+        var_dump($fixedDiscountList);
 
 
         require 'View/homepage.php';
