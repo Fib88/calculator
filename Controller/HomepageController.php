@@ -106,14 +106,17 @@ class HomepageController
 
 
             }
+
             var_dump($allGroups);
 
             echo $fixedDiscount . '<br>';
+
             $fixedDiscountList = [];
 
             for ($i = 0; $i < count($allGroups); $i++) {
                 if ($allGroups[$i]["fixed_discount"] !== null) {
                     array_push($fixedDiscountList, (int)$allGroups[$i]["fixed_discount"]);
+
 
                 }
 
@@ -128,7 +131,15 @@ class HomepageController
                     $highVarDiscount = $varDiscount;
                 }
 
-            }
+        }
+
+            $fixedDiscountList = array_sum($fixedDiscountList);
+            var_dump($fixedDiscountList);
+//            var_dump($varDiscount);
+//            var_dump($allGroups);
+            
+}
+
 
             echo $highVarDiscount.'<br>';
             echo (float)($ProductSelection).'<br>';
