@@ -74,7 +74,7 @@ class HomepageController
 
         $handle->execute();
         $SelectedCustomer = $handle->fetchAll();
-        //var_dump($SelectedCustomer);
+        var_dump($SelectedCustomer);
         if (!empty($SelectedCustomer)) {
 
 
@@ -123,15 +123,20 @@ class HomepageController
 
             $totalFixedDiscount = $fixedDiscountList + $fixedDiscount;
             //var_dump($totalFixedDiscount);
-
+            //var_dump($allVarDiscounts);
 
             $varDifference = (float)$ProductSelection / 100 * $highVarDiscount;
 
 
             $ValueTotalFixedDiscount = $ProductSelection - $totalFixedDiscount;
+
             $varDifference = (float)$ValueTotalFixedDiscount / 100 * $highVarDiscount;
-            $LeftoverPrice = $ProductSelection - $varDifference;
-            echo "Object ordered, from the " . $productInfo . " " . "You have saved: " . round($varDifference, 2) . " ." . "Which resulted in the price of " . round($LeftoverPrice, 2) . '<br>';
+
+
+            echo "Object ordered, from the " . $productInfo . " " . "You have saved: " . max(round($varDifference, 2),$ProductSelection)." ";
+            $LeftoverPrice = $ProductSelection - max(round($varDifference, 2),$ProductSelection);;
+            echo "Which resulted in the price of " . round($LeftoverPrice, 2) . '<br>';
+
             if ($totalFixedDiscount > $varDifference) {
                 echo " Your Fixed Discount had the most value";
             } else {
