@@ -119,10 +119,10 @@ class HomepageController
             }
 
             $fixedDiscountList = array_sum($fixedDiscountList);
-            //var_dump($fixedDiscountList);
+
 
             $totalFixedDiscount = $fixedDiscountList + $fixedDiscount;
-            //var_dump($totalFixedDiscount);
+
 
 
             $varDifference = (float)$ProductSelection / 100 * $highVarDiscount;
@@ -131,6 +131,7 @@ class HomepageController
             $ValueTotalFixedDiscount = $ProductSelection - $totalFixedDiscount;
             $varDifference = (float)$ValueTotalFixedDiscount / 100 * $highVarDiscount;
             $LeftoverPrice = $ProductSelection - $varDifference;
+            
             echo "Object ordered, from the " . $productInfo . " " . "You have saved: " . round($varDifference, 2) . " ." . "Which resulted in the price of " . round($LeftoverPrice, 2) . '<br>';
             if ($totalFixedDiscount > $varDifference) {
                 echo " Your Fixed Discount had the most value";
