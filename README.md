@@ -20,6 +20,6 @@ It's for the becode course.
 13. [x] calculate variable discount formula set.
 14. [x] find a way to compare the two discounts.
 15. [x] display result and show largest discount
-16. remove unnecessary layout items
-17. clean up negative discount bug
+16. [x] remove unnecessary layout items
+17. [x] clean up negative discount bug
 18. add styling to the results
