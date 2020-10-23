@@ -34,15 +34,12 @@ Anything complex should be calculated in the model -->
 
 <?php
 
-//echo "Object ordered, from the " . $productInfo . " " . "You have saved: " . max(round($varDifference, 2),$ProductSelection)." ";
-//$LeftoverPrice = $ProductSelection - max(round($varDifference, 2),$ProductSelection);;
-//echo "Which resulted in the price of " . round($LeftoverPrice, 2) . '<br>';
-//
-//if ($totalFixedDiscount > $varDifference) {
-//    echo " Your Fixed Discount had the most value";
-//} else {
-//    echo "Your Percentage Discount had the most value";
-//}
+echo "Object ordered, from the " . $productInfo . " " . "You have saved: " . round($varDifference, 2) . " ." . "Which resulted in the price of " . round($LeftoverPrice, 2) . '<br>';
+if ($totalFixedDiscount > $varDifference) {
+    echo " Your Fixed Discount had the most value";
+} else {
+    echo "Your Percentage Discount had the most value";
+}
 
 
 require 'includes/footer.php'?>
