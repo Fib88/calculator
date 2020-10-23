@@ -57,6 +57,7 @@ class HomepageController
             $productInfo = " ";
         }
         //utf 8 apparently takes 3 spaces for €.
+        //mb_
         $ProductSelection = substr($productInfo, strpos($productInfo, '€') + strlen('€'));
         //var_dump($ProductSelection);
 
@@ -134,13 +135,18 @@ class HomepageController
 
             $ValueTotalFixedDiscount = $ProductSelection - $totalFixedDiscount;
             $varDifference = (float)$ValueTotalFixedDiscount / 100 * $highVarDiscount;
+            $totalDiscount=$varDifference+$totalFixedDiscount;
+            if($totalDiscount<0){
+                $totalDiscount = $ProductSelection;
 
-            if($varDifference<0){
-                $varDifference = $ProductSelection;
-                $ProductSelection = $ProductSelection;
             }
-                $LeftoverPrice = $ProductSelection - $varDifference;
-                echo "Object ordered, from the " . $productInfo . " " . "You have saved: " . round($varDifference, 2) . " ." . "Which resulted in the price of " . round($LeftoverPrice, 2) . '<br>';
+            if($totalDiscount>$ProductSelection){
+                $totalDiscount = $ProductSelection;
+
+            }
+                $LeftoverPrice = $ValueTotalFixedDiscount- $varDifference;
+
+                echo "Succes!<br> You have ordered the " . $productInfo . " " . "<br>Your discount is: €" . round($totalDiscount, 2) . " ." . "and your final price is €" . max(round($LeftoverPrice, 2),0) . '<br>';
                 if ($totalFixedDiscount > $varDifference) {
                     echo " Your Fixed Discount had the most value";
                 } else {

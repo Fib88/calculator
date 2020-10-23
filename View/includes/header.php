@@ -15,5 +15,5 @@
 </head>
 <body  <body style="background-color:lemonchiffon;">
     <header class="ml-2">
-        <h1>Please choose your name and product</h1>
+        <h2>Please choose your name and product</h2>
     </header>
