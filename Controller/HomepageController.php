@@ -140,7 +140,8 @@ class HomepageController
                 $ProductSelection = $ProductSelection;
             }
                 $LeftoverPrice = $ProductSelection - $varDifference;
-                echo "Object ordered, from the " . $productInfo . " " . "You have saved: " . round($varDifference, 2) . " ." . "Which resulted in the price of " . round($LeftoverPrice, 2) . '<br>';
+
+                echo "Succes!<br> You have ordered the " . $productInfo . " " . "<br>Your discount is: €" . round($varDifference, 2) .  " and your final price is €" . round($LeftoverPrice, 2) . '<br>';
                 if ($totalFixedDiscount > $varDifference) {
                     echo " Your Fixed Discount had the most value";
                 } else {
