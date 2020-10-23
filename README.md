@@ -2,6 +2,15 @@
 This exercise is a collaboration between Fib88 and MonoraxXiV.
 It's for the becode course.
 
+## The excercise  can be found here
+https://github.com/becodeorg/atw-giertz-3-23/tree/master/2.The-Hills/php/7.oop-pricecalculator
+
+## update:
+This excercise includes MVC and OOP. 
+We used two seperate branches as not too deal with too many merge conflicts and
+solved problems mostly together. Our biggest challenge was working in OOP as we are
+not familiar with the concept yet. We do see the benefits of working with classes.
+
 ## Calculator checklist
 
 
@@ -23,3 +32,5 @@ It's for the becode course.
 16. [x] remove unnecessary layout items
 17. [x] clean up negative discount bug
 18. add styling to the results
+
+
